@@ -8,7 +8,9 @@ Earlier, service requests were maintained manually. To make this process easier,
 
 I used OOP, exception handling, JSON file handling, SOLID principles and basic Domain-Driven Design (DDD) to develop this application.
 
-I also implemented admin authentication so that only an authenticated administrator can resolve service requests.
+Along with the required features, I added two extra functionalities:
+Admin Authentication
+Dashboard Summary
 
 ## 2. Features Implemented
 
@@ -19,22 +21,35 @@ I implemented the following features:
 3. **View All Requests:** Displays all saved requests with their details and status.
 4. **Search Request:** Allows searching for a request using its Request ID.
 5. **Resolve Request:** Only an authenticated admin can resolve an open request.
-6. **Admin Authentication:** Admin login is required before resolving a request.
-7. **Dashboard Summary:** Displays total requests, open requests and resolved requests.
-8. **JSON Persistence:** All requests are stored in a JSON file and remain available after restarting the application.
-9. **Exception Handling:** Custom exceptions handle duplicate IDs, invalid priorities, missing requests, already resolved requests and unauthorized access.
+6. **JSON Persistence:** All requests are stored in a JSON file and remain available after restarting the application.
+7. **Exception Handling:** Custom exceptions handle duplicate IDs, invalid priorities, missing requests, already resolved requests and unauthorized access.
 
-### Admin Login Credentials
+### Additional Features Implemented
 
-- Username: riddhi
-- Password: riddhi123
+1. Admin Authentication
 
+I added  an admin authentication feature to ensure that only an authenticated administrator can resolve service requests.
+Before resolving a request, the system asks for the admin username and password.
+I created a separate AuthService class in application/auth_service.py to validate the  credentials.
+Normal users can create, view and search requests, but they cannot resolve them.
+Demo credentials: username, password
+These credentials are hardcoded for practical demo purposes and cant be used incase of  production.
+
+2. Dashboard Summary
+
+I added a dashboard feature to display a summary of service requests.
+It displays:
+Total Requests
+Open Requests
+Resolved Requests
+
+Implemented the get_dashboard_summary() method inside RequestService to calculate these values. This helps users quickly understand the current status of service requests.
 
 ## 3. Technologies Used
 
 - Python
 - JSON
-- Object-Oriented Programming
+- OOP
 - Git and GitHub
 - VS Code
 
@@ -145,7 +160,13 @@ I connected the RequestService with the FileRepository through dependency inject
 
 I also implemented duplicate Request ID validation and checked admin authorization before resolving a request.
 
-### Step 7: Developed the Main Menu
+### Step 7: Implemented Dashboard Summary
+
+I added the get_dashboard_summary() method to RequestService.
+This method calculates the total number of requests, open requests and resolved requests.
+I added a separate dashboard option in the main menu to display these statistics.
+
+### Step 8: Developed the Main Menu
 
 Next implemented `main.py` to handle user interaction.
 
@@ -158,13 +179,12 @@ I created a menu-driven interface that allows users to:
 5. Resolve Request (Admin Only)
 6. Exit
 
-I used functions to keep the menu operations separate and handled custom exceptions to display friendly error messages.
+Here used functions to keep the menu operations separate and handled custom exceptions to display friendly error messages.
 
 ### Step 8: Tested the Application
 
-After completing the implementation, I tested the application using different scenarios.
-
-I performed the following tests:
+After completing implementation, I tested the application using different scenarios.
+performed the following tests:
 
 1. Created a service request with ID SR101 and HIGH priority.
 2. Tried creating SR101 again to check duplicate ID validation.
@@ -182,8 +202,7 @@ All these core test scenarios worked successfully.
 ### OOP
 
 I used a ServiceRequest class to represent service requests.
-
-I used constructors, attributes and methods to organize the request data and behavior.
+Used constructors, attributes and methods to organize the request data & behavior.
 
 ### Exception Handling
 
@@ -191,22 +210,21 @@ I created custom exceptions to handle expected errors such as duplicate requests
 
 ### File Handling
 
-I used Python's JSON module to store and retrieve request information.
+I used Python's JSON module to store & retrieve request information.
 
 ### SOLID Principles
 
 I followed the Single Responsibility Principle by separating domain logic, application operations, file handling and user interaction.
-
-I also followed Dependency Inversion by passing the repository object into RequestService instead of making the application service directly handle file operations.
+ Also followed Dependency Inversion by passing the repository object into RequestService instead of making the application service directly handle file operations.
 
 ### Domain-Driven Design
 
 I separated the application into:
 
-- Domain Layer: Contains business entities, validation and business rules.
-- Application Layer: Contains application operations and authentication.
-- Infrastructure Layer: Contains JSON file handling.
-- Presentation Layer: Contains the menu and user interaction in main.py.
+- Domain Layer: Contains business entities, validation, custom domain exceptions & business rules.
+- Application Layer: Contains application operations & authentication.
+- Infrastructure Layer: Contains FileRepository,JSON file handling.
+- Presentation Layer: Contains the menu nd user interaction in main.py.
 
 ### Git/GitHub
 
@@ -215,21 +233,22 @@ I used Git for version control and maintained two branches:
 - main
 - development
 
-I performed development work in the development branch, committed changes in multiple stages, tested the application and merged the development branch into main.
+Followed this process:
 
-## 7. How to Run the Application
-
-## 8. Git Branching and Merging Process
-
-I used the development branch for implementing the application.
-
-Created separate commits for the project structure, domain model, JSON repository, application services and CLI implementation.
-
-After completing and testing the application, I merged the development branch into main.
+Initialized the git repository.
+Created the main branch.
+Created the development branch.
+Performed all development work in the development branch.
+Made separate commits for the project structure, domain model, repository, authentication, application service, CLI and documentation.
+Tested the application.
+Merged development into main.
+Pushed both branches to the remote GitHub repository.
 
 The final working version is maintained in the main branch.
 
-## 9. Conclusion
+## 7. Application runs via `python main.py`
+
+## 8. Conclusion
 
 Through this project, I implemented a simple Smart Service Desk Management System using Python.
 
